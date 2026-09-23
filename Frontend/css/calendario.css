@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --tinta: #1f1b2e;
+    --tinta-suave: #6b6675;
+    --papel: #fffdfc;
+    --tarjeta: #ffffff;
+    --borde: #ece7f2;
+    --morado: #5b2a86;
+    --morado-hover: #4a2170;
+    --morado-suave: #f4eefc;
+    --verde: #16a34a;
+    --verde-suave: #eafaf0;
+    --gris: #6b7280;
+    --gris-suave: #f1f1f3;
+    --error: #b3261e;
+    --error-suave: #fbeceb;
+}
+
+main {
+    background: var(--papel);
+    min-height: 100vh;
+}
+
+.contenido-calendario {
+    padding: 2.25rem 3rem 3rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+
+
+
+
+.calendario-encabezado {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#tituloCalendario {
+    margin: 0;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    color: var(--tinta);
+}
+
+.subtitulo-calendario {
+    margin: 0.3rem 0 0;
+    color: var(--tinta-suave);
+    font-size: 0.92rem;
+}
+
+.calendario-controles {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.mes-actual {
+    min-width: 160px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--tinta);
+    text-transform: capitalize;
+}
+
+.btn-nav {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1.5px solid var(--borde);
+    background: #fff;
+    color: var(--morado);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-nav svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-nav:hover {
+    background: var(--morado-suave);
+    border-color: var(--morado);
+}
+
+.btn-hoy {
+    height: 38px;
+    padding: 0 1rem;
+    border-radius: 10px;
+    border: 1.5px solid var(--morado);
+    background: #fff;
+    color: var(--morado);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-hoy:hover {
+    background: var(--morado);
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+.calendario-card {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 18px;
+    box-shadow: 0 2px 10px rgba(31, 27, 46, 0.04);
+    padding: 1.5rem;
+}
+
+.calendario-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 0 0.15rem 0.75rem;
+}
+
+.calendario-semana span {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--tinta-suave);
+}
+
+.calendario-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.6rem;
+}
+
+.calendario-cargando {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--tinta-suave);
+    padding: 3rem 0;
+}
+
+
+
+
+
+
+
+
+
+.dia-celda {
+    min-height: 128px;
+    border: 1.5px solid var(--borde);
+    border-radius: 14px;
+    padding: 0.6rem 0.55rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.dia-celda:hover {
+    border-color: var(--morado);
+    transform: translateY(-1px);
+}
+
+.dia-celda.fuera-mes {
+    background: #fbfaf9;
+    border-color: var(--borde);
+}
+
+.dia-celda.fuera-mes .dia-numero {
+    color: #c9c4d1;
+}
+
+.dia-celda.hoy {
+    border-color: var(--morado);
+    box-shadow: 0 0 0 2px var(--morado-suave);
+}
+
+.dia-numero {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--tinta);
+}
+
+.dia-celda.hoy .dia-numero {
+    color: var(--morado);
+}
+
+.dia-eventos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.evento-chip {
+    display: block;
+    border-left: 3px solid var(--morado);
+    background: var(--morado-suave);
+    border-radius: 6px;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.72rem;
+    line-height: 1.25;
+    color: var(--tinta);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.evento-chip:hover {
+    background: #ebdffa;
+}
+
+.evento-chip strong {
+    font-weight: 700;
+}
+
+.evento-chip.finalizado {
+    border-left-color: var(--gris);
+    background: var(--gris-suave);
+}
+
+.evento-chip.cancelado {
+    border-left-color: var(--error);
+    background: var(--error-suave);
+}
+
+.dia-mas {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--morado);
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.dia-mas:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+.calendario-leyenda {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--borde);
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--tinta-suave);
+}
+
+.punto {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+    background: var(--morado);
+}
+
+.punto.finalizado {
+    background: var(--gris);
+}
+
+.punto.cancelado {
+    background: var(--error);
+}
+
+
+
+
+
+
+
+
+
+
+
+.modal-dia {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 27, 46, 0.45);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 50;
+}
+
+.modal-dia.abierto {
+    display: flex;
+}
+
+.modal-dia-contenido {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 80vh;
+    padding: 1.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    background: var(--morado-suave);
+    color: var(--morado);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal-cerrar:hover {
+    background: #ebdffa;
+}
+
+.modal-dia-fecha {
+    margin: 0 1.75rem 1rem 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--tinta);
+    text-transform: capitalize;
+}
+
+.modal-dia-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-y: auto;
+}
+
+.modal-evento {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    border: 1.5px solid var(--borde);
+    border-left: 4px solid var(--morado);
+    border-radius: 12px;
+    padding: 0.75rem 0.9rem;
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+}
+
+.modal-evento:hover {
+    border-color: var(--morado);
+}
+
+.modal-evento.finalizado {
+    border-left-color: var(--gris);
+}
+
+.modal-evento.cancelado {
+    border-left-color: var(--error);
+}
+
+.modal-evento-hora {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--morado);
+    min-width: 48px;
+}
+
+.modal-evento-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.modal-evento-nombre {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--tinta);
+}
+
+.modal-evento-lugar {
+    font-size: 0.8rem;
+    color: var(--tinta-suave);
+}
+
+@media (max-width: 900px) {
+    .contenido-calendario {
+        padding: 1.5rem;
+    }
+
+    .dia-celda {
+        min-height: 96px;
+    }
+
+    .evento-chip {
+        font-size: 0.66rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .calendario-semana span:nth-child(n) {
+        font-size: 0.68rem;
+    }
+
+    .dia-numero {
+        font-size: 0.75rem;
+    }
+
+    .dia-celda {
+        min-height: 84px;
+        padding: 0.4rem;
+        border-radius: 10px;
+    }
+
+    .evento-chip {
+        font-size: 0.6rem;
+        padding: 0.18rem 0.3rem;
+    }
+}

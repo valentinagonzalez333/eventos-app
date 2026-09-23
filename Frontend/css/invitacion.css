@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --acento: #5b2a86;
+    --acento-oscuro: #3d1c5c;
+    --acento-profundo: #241040;
+    --acento-texto: #ffffff;
+    --acento-sombra: rgba(91, 42, 134, 0.16);
+    --tinta: #1f1b2e;
+    --tinta-suave: #6b6675;
+    --papel: #f4eefc;
+    --tarjeta: #ffffff;
+    --borde: #ece7f2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--papel);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--tinta);
+    min-height: 100vh;
+}
+
+.cargando-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.spinner {
+    width: 34px;
+    height: 34px;
+    border: 3px solid var(--borde);
+    border-top-color: var(--acento);
+    border-radius: 50%;
+    animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
+
+.estado-mensaje {
+    max-width: 420px;
+    margin: 4rem auto;
+    text-align: center;
+    padding: 0 1.5rem;
+}
+
+.estado-mensaje h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+}
+
+.estado-mensaje p {
+    color: var(--tinta-suave);
+}
+
+
+
+
+
+
+
+/*Tarjeta principal*/
+
+.tarjeta-invitacion {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--tarjeta);
+    box-shadow: 0 0 40px rgba(31, 27, 46, 0.08);
+}
+
+@media (min-width: 500px) {
+    .tarjeta-invitacion {
+        min-height: auto;
+        margin: 2.5rem auto;
+        border-radius: 22px;
+        overflow: hidden;
+    }
+}
+
+
+
+
+
+
+.portada {
+    position: relative;
+    min-height: 62vh;
+    background: linear-gradient(160deg, var(--acento), var(--acento-profundo));
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+}
+
+.portada-velo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 55%, transparent 100%);
+}
+
+.portada-contenido {
+    position: relative;
+    padding: 2.5rem 2rem;
+}
+
+.portada-para {
+    margin: 0 0 0.3rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.portada-nombre {
+    margin: 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 2.1rem;
+    line-height: 1.15;
+}
+
+
+
+
+
+
+
+.bloque {
+    padding: 2rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.bloque h2 {
+    margin: 0 0 1.1rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--acento-oscuro);
+    text-align: center;
+}
+
+.bloque-frase {
+    text-align: center;
+}
+
+.bloque-frase p {
+    margin: 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--tinta);
+}
+
+
+
+
+
+
+
+/*Datos (fecha / lugar) */
+
+.bloque-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.dato {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.95rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.dato-icono {
+    font-size: 1.1rem;
+}
+
+
+
+
+
+
+
+.momento {
+    display: grid;
+    grid-template-columns: 70px 12px 1fr;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+}
+
+.momento-hora {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--acento-oscuro);
+    text-align: right;
+}
+
+.momento-linea {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--acento);
+    justify-self: center;
+}
+
+.momento-desc {
+    font-size: 0.9rem;
+}
+
+
+
+
+
+
+/* RSVP*/
+
+.bloque-rsvp {
+    border-bottom: none;
+    background: var(--papel);
+}
+
+.rsvp-aviso {
+    background: #fff3d6;
+    color: #92660c;
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    margin: -0.4rem 0 1.2rem;
+}
+
+.rsvp-opciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin-bottom: 1.4rem;
+}
+
+.btn-rsvp {
+    padding: 0.85rem 0.6rem;
+    border-radius: 12px;
+    border: 1.5px solid var(--borde);
+    background: #fff;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--tinta-suave);
+    transition: all 0.15s ease;
+}
+
+.btn-rsvp.activo.btn-rsvp-si {
+    background: var(--acento);
+    border-color: var(--acento);
+    color: var(--acento-texto);
+}
+
+.btn-rsvp.activo.btn-rsvp-no {
+    background: #fde3e3;
+    border-color: #f3b4b4;
+    color: #b91c1c;
+}
+
+.rsvp-campo {
+    margin-bottom: 1.1rem;
+}
+
+.rsvp-campo label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--tinta);
+}
+
+.rsvp-campo input,
+.rsvp-campo textarea,
+.input-acompanante {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--borde);
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    background: #fff;
+    outline: none;
+}
+
+.input-acompanante {
+    margin-bottom: 0.5rem;
+}
+
+.rsvp-campo input:focus,
+.rsvp-campo textarea:focus,
+.input-acompanante:focus {
+    border-color: var(--acento);
+    box-shadow: 0 0 0 3px var(--acento-sombra);
+}
+
+.rsvp-campo textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+.btn-enviar-rsvp {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--acento);
+    color: var(--acento-texto);
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-enviar-rsvp:hover {
+    filter: brightness(0.92);
+}
+
+.rsvp-confirmacion {
+    text-align: center;
+    font-weight: 600;
+    color: var(--acento);
+    padding: 1rem 0;
+}
+
+
+
+
+
+.portada-invita {
+    margin: 1.5rem 0 0.3rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.portada-evento {
+    margin: 0;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.25;
+}

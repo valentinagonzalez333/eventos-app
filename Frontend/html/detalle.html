@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del evento</title>
+
+    <script src="/js/sesion.js"></script>
+
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/detalle.css">
+    <link rel="stylesheet" href="/css/seccionesDetalle.css">
+    <link rel="stylesheet" href="/css/alertas.css">
+
+    <script src="/js/alertas.js" defer></script>
+    <script src="/js/detallegeneral.js" defer></script>
+    <script src="/js/gastos.js" defer></script>
+    <script src="/js/tareas.js" defer></script>
+    <script src="/js/proveedores.js" defer></script>
+    <script src="/js/mesas.js" defer></script>
+    <script src="/js/detalle.js" defer></script>
+    <script src="/js/vistaPrevia.js" defer></script>
+</head>
+<body>
+
+    <main>
+        <div class="detalle-contenedor">
+
+            <aside class="menu-evento">
+                <button class="btn-volver" id="btnVolver">← Volver</button>
+                <h2 id="nombreEvento">Evento</h2>
+                <nav class="menu-interno">
+                    <button class="menu-item activo" data-pestana="info">Info básica</button>
+                    <button class="menu-item" data-pestana="invitaciones">Invitaciones</button>
+                    <button class="menu-item" data-pestana="tareas">Tareas</button>
+                    <button class="menu-item" data-pestana="gastos">Gastos</button>
+                    <button class="menu-item" data-pestana="proveedores">Proveedores</button>
+                    <button class="menu-item" data-pestana="mesas">Mesas</button>
+                </nav>
+            </aside>
+
+
+            <section class="contenido-evento">
+                <div id="pestana-info" class="pestana activa"></div>
+                <div id="pestana-invitaciones" class="pestana"></div>
+                <div id="pestana-tareas" class="pestana"></div>
+                <div id="pestana-gastos" class="pestana"></div>
+                <div id="pestana-proveedores" class="pestana"></div>
+                <div id="pestana-mesas" class="pestana"></div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicativo Web para la gestión de eventos (bodas, cumpleaños y reuniones)">
+    <title>Nueva contraseña · Portal Eve</title>
+    <script src="/js/alertas.js" defer></script>
+    <script src="/js/restablecer.js" defer></script>
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/alertas.css">
+</head>
+
+<body>
+
+    <main class="contenido">
+        <div class="out">
+
+            <div class="top">
+                <div class="logo"></div>
+                <h1>Elige tu nueva contraseña</h1>
+            </div>
+
+            <form id="formularioRestablecer">
+
+                <div class="coolinput">
+                    <label for="nuevaPass" class="text">Nueva contraseña:</label>
+                    <input type="password" placeholder="nueva contraseña" class="input" id="nuevaPass" required>
+                </div>
+
+                <div class="coolinput">
+                    <label for="confirmarPass" class="text">Confirmar contraseña:</label>
+                    <input type="password" placeholder="confirmar contraseña" class="input" id="confirmarPass" required>
+                </div>
+
+                <button class="btn-iniciar" id="btnRestablecer">Guardar nueva contraseña</button>
+            </form>
+
+            <p class="mensaje-enlace-invalido" id="mensajeSinToken" hidden>
+                Este enlace no es válido o ya venció. Solicita uno nuevo desde <a href="/recuperar">aquí</a>.
+            </p>
+
+        </div>
+    </main>
+
+</body>
+
+</html>

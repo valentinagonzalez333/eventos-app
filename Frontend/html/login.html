@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicativo Web para la gestión de eventos (bodas, cumpleaños y reuniones)">
+    <title>Ingresa al portal Eve</title>
+    <link rel="stylesheet" href="/css/alertas.css">
+    <script src="/js/alertas.js" defer></script>
+    <script src="/js/login.js" defer></script>
+    <link rel="stylesheet" href="/css/login.css">
+
+</head>
+
+<body>
+
+    <main class="contenido">
+        <div class="out">
+
+            <div class="top">
+                <div class="logo"></div>
+                <h1>Iniciar Sesión</h1>
+            </div>
+            <form id="formularioLogin">
+
+                <!-- From Uiverse.io by kamehame-ha -->
+                <div class="coolinput">
+                    <label for="input" class="text">Correo:</label>
+                    <input type="email" placeholder="correo" name="input" class="input" id="correo" required>
+                </div>
+
+                <!-- From Uiverse.io by kamehame-ha -->
+                <div class="coolinput">
+                    <label for="input" class="text">Contraseña:</label>
+                    <input type="password" placeholder="contraseña" name="input" class="input" id="contrasena" required>
+                </div>
+
+                <div class="enlaceRecuperar">
+                    <a href="/recuperar">¿Olvidaste tu contraseña?</a>
+                </div>
+                <div class="enlaceCuenta">
+                    <a href="/registro">¿Aún no tienes una cuenta? <span>Resgistrate</span></a>
+                </div>
+
+                <button class="btn-iniciar">Continuar</button>
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>

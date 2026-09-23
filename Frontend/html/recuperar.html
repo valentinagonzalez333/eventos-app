@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicativo Web para la gestión de eventos (bodas, cumpleaños y reuniones)">
+    <title>Recuperar contraseña · Portal Eve</title>
+    <script src="/js/alertas.js" defer></script>
+    <script src="/js/recuperar.js" defer></script>
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/alertas.css">
+</head>
+
+<body>
+
+    <main class="contenido">
+        <div class="out">
+
+            <div class="top">
+                <div class="logo"></div>
+                <h1>Recuperar contraseña</h1>
+                <p class="subtitulo-auth">Escribe el correo con el que te registraste. Si existe una cuenta, te
+                    enviaremos un enlace para restablecer la contraseña.</p>
+            </div>
+
+            <form id="formularioRecuperar">
+
+                <div class="coolinput">
+                    <label for="correo" class="text">Correo:</label>
+                    <input type="email" placeholder="correo" name="input" class="input" id="correo" required>
+                </div>
+
+                <button class="btn-iniciar" id="btnEnviar">Enviar enlace</button>
+
+                <div class="enlaceCuenta">
+                    <a href="/login">← Volver a iniciar sesión</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>

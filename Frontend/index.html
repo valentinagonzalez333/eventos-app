@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicativo Web para la gestión de eventos (bodas, cumpleaños y reuniones)">
+    <title>Portal Eve · Organiza tus eventos sin perder el hilo</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+
+    <header class="nav">
+        <a href="/" class="nav-logo">
+            <span class="letra-e">E</span>
+            <span>Portal Eve</span>
+        </a>
+        <nav class="nav-acciones">
+            <a href="/login" class="nav-link">Iniciar sesión</a>
+            <a href="/registro" class="btn-nav-crear">Crear cuenta</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="hero-texto">
+                <span class="hero-etiqueta">Bodas · Cumpleaños · Reuniones</span>
+                <h1>Organiza cada evento <em>sin perder el hilo</em></h1>
+                <p class="hero-sub">
+                    Invitados, presupuesto, tareas, proveedores y el calendario completo de tus eventos,
+                    todo en un solo panel. Deja de perseguir confirmaciones por WhatsApp.
+                </p>
+                <div class="hero-acciones">
+                    <a href="/registro" class="btn-grande btn-morado">Crear cuenta gratis</a>
+                    <a href="/login" class="btn-grande btn-outline">Iniciar sesión</a>
+                </div>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="mock-ventana">
+                    <div class="mock-barra">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="mock-cuerpo">
+                        <div class="mock-tarjeta">
+                            <div class="mock-fecha">14<br>MAR</div>
+                            <div class="mock-info">
+                                <strong>Boda Ana &amp; Luis</strong>
+                                <span>Hacienda San José</span>
+                            </div>
+                            <span class="mock-badge">Activo</span>
+                        </div>
+                        <div class="mock-tarjeta">
+                            <div class="mock-fecha mock-fecha-alt">22<br>MAR</div>
+                            <div class="mock-info">
+                                <strong>Cumpleaños Sofía</strong>
+                                <span>Salón Los Rosales</span>
+                            </div>
+                            <span class="mock-badge mock-badge-azul">5 días</span>
+                        </div>
+                        <div class="mock-progreso">
+                            <div class="mock-progreso-fila">
+                                <span>Presupuesto usado</span>
+                                <strong>68%</strong>
+                            </div>
+                            <div class="mock-barra-progreso"><i style="width:68%"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="funciones">
+            <div class="funciones-encabezado">
+                <h2>Todo lo que necesitas, en un solo lugar</h2>
+                <p>Deja de repartir la organización entre notas, hojas de cálculo y chats.</p>
+            </div>
+
+            <div class="funciones-grid">
+                <div class="funcion-card">
+                    <div class="funcion-icono">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                    </div>
+                    <h3>Calendario completo</h3>
+                    <p>Todos tus eventos ubicados en su día exacto, con nombre y lugar a la vista.</p>
+                </div>
+
+                <div class="funcion-card">
+                    <div class="funcion-icono">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <h3>Invitaciones con RSVP</h3>
+                    <p>Diseña tu invitación, comparte el link y mira quién confirma en tiempo real.</p>
+                </div>
+
+                <div class="funcion-card">
+                    <div class="funcion-icono">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                    </div>
+                    <h3>Presupuesto y gastos</h3>
+                    <p>Registra gastos por categoría y entérate a tiempo si te vas a pasar del presupuesto.</p>
+                </div>
+
+                <div class="funcion-card">
+                    <div class="funcion-icono">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 11l3 3L22 4" />
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                        </svg>
+                    </div>
+                    <h3>Tareas y proveedores</h3>
+                    <p>Una lista clara de pendientes y con quién estás trabajando, evento por evento.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pasos">
+            <div class="funciones-encabezado">
+                <h2>Empezar toma tres minutos</h2>
+            </div>
+            <div class="pasos-grid">
+                <div class="paso">
+                    <span class="paso-numero">1</span>
+                    <h3>Crea tu cuenta</h3>
+                    <p>Solo un correo y una contraseña. Sin tarjeta, sin vueltas.</p>
+                </div>
+                <div class="paso">
+                    <span class="paso-numero">2</span>
+                    <h3>Crea tu evento</h3>
+                    <p>Nombre, fecha, lugar y presupuesto. Lo demás lo vas llenando cuando quieras.</p>
+                </div>
+                <div class="paso">
+                    <span class="paso-numero">3</span>
+                    <h3>Comparte e invita</h3>
+                    <p>Manda el link de tu invitación y sigue las confirmaciones desde el panel.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-final">
+            <h2>¿Listo para dejar de organizar en chats sueltos?</h2>
+            <div class="hero-acciones hero-acciones-centrado">
+                <a href="/registro" class="btn-grande btn-morado">Crear cuenta gratis</a>
+                <a href="/login" class="btn-grande btn-outline">Ya tengo cuenta</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pie">
+        <div class="nav-logo">
+            <span class="letra-e">E</span>
+            <span>Portal Eve</span>
+        </div>
+        <nav class="pie-links">
+            <a href="/login">Iniciar sesión</a>
+            <a href="/registro">Crear cuenta</a>
+        </nav>
+    </footer>
+
+</body>
+
+</html>

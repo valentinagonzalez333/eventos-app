@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicativo Web para la gestión de eventos (bodas, cumpleaños y reuniones)">
+    <link rel="stylesheet" href="/css/alertas.css">
+    <script src="/js/alertas.js" defer></script>
+    <script src="/js/registro.js" defer></script>
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Comienza tu nueva experiencia en Eve</title>
+</head>
+
+<body>
+    <main class="contenido">
+        <div class="out">
+
+            <div class="top">
+                <div class="logo"></div>
+                <p style="font-size: 1rem; margin: 2rem 2rem 1rem 2rem;">Te damos la bienvenida a Eve</p>
+            </div>
+            <form id="formularioRegistro">
+
+                <!-- From Uiverse.io by kamehame-ha -->
+                <div class="coolinput">
+                    <label for="input" class="text">Usuario:</label>
+                    <input type="text" placeholder="introduce tu usuario" name="input" class="input" id="usuario"
+                        required>
+                </div>
+
+                <div class="coolinput">
+                    <label for="input" class="text">Correo:</label>
+                    <input type="email" placeholder="introduce tu correo" name="input" class="input" id="correo"
+                        required>
+                </div>
+
+                <!-- From Uiverse.io by kamehame-ha -->
+                <div class="coolinput">
+                    <label for="input" class="text">Contraseña:</label>
+                    <input type="password" placeholder="crea una contraseña" name="input" class="input" id="contrasena"
+                        required>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">Minimo 8 digitos</p>
+                </div>
+
+                <div class="enlaceCuenta">
+                    <a href="/login">¿Ya tiene una cuenta? <span>Iniciar sesión</span></a>
+                </div>
+
+                <button class="btn-iniciar">Continuar</button>
+
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

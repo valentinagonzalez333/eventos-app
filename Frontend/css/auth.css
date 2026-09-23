@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --tinta: #1f1b2e;
+    --tinta-suave: #6b6675;
+    --papel: #fffdfc;
+    --tarjeta: #ffffff;
+    --borde: #ece7f2;
+    --morado: #5b2a86;
+    --morado-hover: #4a2170;
+    --morado-suave: #f4eefc;
+    --error: #b3261e;
+    --error-suave: #fbeceb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--papel);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--tinta);
+}
+
+.contenido {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+}
+
+.out {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(31, 27, 46, 0.05), 0 12px 32px rgba(31, 27, 46, 0.06);
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem 2.25rem;
+    text-align: center;
+}
+
+
+
+
+
+
+.top {
+    margin-bottom: 1.75rem;
+}
+
+.logo {
+    margin-bottom: 0.4rem;
+}
+
+.logo::before {
+    content: 'E';
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 2.75rem;
+    line-height: 1;
+    color: var(--morado);
+}
+
+.top h1 {
+    margin: 0.2rem 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--tinta);
+}
+
+.subtitulo-auth {
+    margin: 0.6rem 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--tinta-suave);
+}
+
+
+
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    text-align: left;
+}
+
+.coolinput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.coolinput .text {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--tinta);
+}
+
+.coolinput .input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1.5px solid var(--borde);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    color: var(--tinta);
+    outline: none;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.coolinput .input::placeholder {
+    color: #a49dae;
+}
+
+.coolinput .input:focus {
+    border-color: var(--morado);
+    box-shadow: 0 0 0 3px var(--morado-suave);
+}
+
+
+
+
+.btn-iniciar {
+    margin-top: 0.25rem;
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--morado);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-iniciar:hover {
+    background: var(--morado-hover);
+    transform: translateY(-1px);
+}
+
+.btn-iniciar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.enlaceCuenta,
+.enlaceRecuperar {
+    text-align: center;
+    margin-top: -0.3rem;
+}
+
+.enlaceCuenta a,
+.enlaceRecuperar a {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--morado);
+    text-decoration: none;
+}
+
+.enlaceCuenta a:hover,
+.enlaceRecuperar a:hover {
+    color: var(--morado-hover);
+    text-decoration: underline;
+}
+
+.enlaceCuenta span {
+    color: var(--morado);
+    font-weight: 700;
+}
+
+
+
+
+
+.mensaje-enlace-invalido {
+    margin: 0.5rem 0 0;
+    padding: 0.85rem 1rem;
+    background: var(--error-suave);
+    color: var(--error);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.mensaje-enlace-invalido a {
+    color: var(--morado);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.mensaje-enlace-invalido a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .out {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+    }
+
+    .logo::before {
+        font-size: 2.3rem;
+    }
+}
