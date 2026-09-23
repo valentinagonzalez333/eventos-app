@@ -631,11 +631,11 @@ function filaInvitado(inv) {
     }
 
     const restricciones = inv.restriccionesAlimentarias
-        ? `<span class="invitado-detalle invitado-alergia">🍽️ ${escapar(inv.restriccionesAlimentarias)}</span>`
+        ? `<span class="invitado-detalle invitado-alergia">Detalles:  ${escapar(inv.restriccionesAlimentarias)}</span>`
         : '';
 
     const observaciones = inv.observaciones
-        ? `<span class="invitado-detalle">📝 ${escapar(inv.observaciones)}</span>`
+        ? `<span class="invitado-detalle">Notas:  ${escapar(inv.observaciones)}</span>`
         : '';
 
     return `
