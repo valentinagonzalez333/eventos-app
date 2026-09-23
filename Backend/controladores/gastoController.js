@@ -11,7 +11,7 @@ async function proveedorValido(proveedorId, eventoId, usuarioId) {
 }
 
 
-async function validarGasto(body, eventoId, usuarioId) {
+async function validarGasto(body, eventoId, usuarioId, fechaEvento) {
     const errores = [];
     const { categoria, monto, descripcion, proveedorId, fecha } = body || {};
 
@@ -39,19 +39,14 @@ async function validarGasto(body, eventoId, usuarioId) {
         fechaGasto = v.aFecha(fecha);
         if (!fechaGasto) errores.push('La fecha no es válida');
         else if (fechaGasto < v.FECHA_MINIMA) errores.push('La fecha no puede ser anterior al año 2000');
-
-        else if (fechaGasto.getTime() > Date.now() + v.UN_DIA) errores.push('La fecha no puede ser futura');
+        else if (fechaEvento && fechaGasto.getTime() > fechaEvento.getTime() + v.UN_DIA) {
+            errores.push('La fecha no puede ser posterior a la fecha del evento');
+        }
     }
 
     return {
         errores,
-        datos: {
-            categoria,
-            monto: Number(monto),
-            descripcion: v.texto(descripcion),
-            proveedorId: proveedor,
-            fecha: fechaGasto || undefined
-        }
+        datos: { categoria, monto: Number(monto), descripcion: v.texto(descripcion), proveedorId: proveedor, fecha: fechaGasto || undefined }
     };
 }
 
@@ -82,7 +77,7 @@ async function crear(req, res) {
             return res.status(409).json({ mensaje: 'Este evento ya no está activo. Solo puedes consultarlo o actualizar su información general para reprogramarlo.' });
         }
 
-        const { errores, datos } = await validarGasto(req.body, eventoId, req.usuarioId);
+        const { errores, datos } = await validarGasto(req.body, eventoId, req.usuarioId, evento.fecha);
         if (errores.length > 0) return v.responderErrores(res, errores);
 
         const gasto = new Gasto({
@@ -118,7 +113,7 @@ async function editar(req, res) {
             return res.status(409).json({ mensaje: 'Este evento ya no está activo. Solo puedes consultarlo o actualizar su información general para reprogramarlo.' });
         }
 
-        const { errores, datos } = await validarGasto(req.body, gasto.eventoId, req.usuarioId);
+        const { errores, datos } = await validarGasto(req.body, gasto.eventoId, req.usuarioId, evento ? evento.fecha : null);
         if (errores.length > 0) return v.responderErrores(res, errores);
 
         gasto.categoria = datos.categoria;

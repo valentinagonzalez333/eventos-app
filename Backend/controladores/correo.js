@@ -1,37 +1,28 @@
+const { Resend } = require('resend');
 
-const nodemailer = require('nodemailer');
+let resendCache = null;
 
-let transportadorCache = null;
+function obtenerResend() {
+    if (resendCache !== null) return resendCache;
 
-function obtenerTransportador() {
-    if (transportadorCache !== null) return transportadorCache;
-
-    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-    if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-        transportadorCache = false;
-        return transportadorCache;
+    if (!process.env.RESEND_API_KEY) {
+        resendCache = false;
+        return resendCache;
     }
 
-    transportadorCache = nodemailer.createTransport({
-        host: SMTP_HOST,
-        port: Number(SMTP_PORT) || 587,
-        secure: Number(SMTP_PORT) === 465,
-        auth: { user: SMTP_USER, pass: SMTP_PASS }
-    });
-    return transportadorCache;
+    resendCache = new Resend(process.env.RESEND_API_KEY);
+    return resendCache;
 }
 
 async function enviarCorreoRecuperacion(destinatario, nombreUsuario, link) {
-    const transportador = obtenerTransportador();
+    const resend = obtenerResend();
 
-    if (!transportador) {
-        console.log(`[correo] SMTP no configurado. Enlace de recuperación para ${destinatario}:`);
+    if (!resend) {
+        console.log(`[correo] RESEND_API_KEY no configurada. Enlace de recuperación para ${destinatario}:`);
         console.log(`[correo] ${link}`);
         return;
     }
 
-    const asunto = 'Recupera tu contraseña en Portal Eve';
-    const texto = `Hola ${nombreUsuario},\n\nSolicitaste restablecer tu contraseña. Este enlace vence en 1 hora:\n${link}\n\nSi no fuiste tú, ignora este correo: tu contraseña actual sigue funcionando.`;
     const html = `
         <p>Hola ${nombreUsuario},</p>
         <p>Solicitaste restablecer tu contraseña. Este enlace vence en 1 hora:</p>
@@ -39,13 +30,14 @@ async function enviarCorreoRecuperacion(destinatario, nombreUsuario, link) {
         <p>Si no fuiste tú, ignora este correo: tu contraseña actual sigue funcionando.</p>
     `;
 
-    await transportador.sendMail({
-        from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    const { error } = await resend.emails.send({
+        from: process.env.RESEND_FROM || 'onboarding@resend.dev',
         to: destinatario,
-        subject: asunto,
-        text: texto,
+        subject: 'Recupera tu contraseña en Portal Eve',
         html
     });
+
+    if (error) throw new Error(error.message || 'Error al enviar el correo');
 }
 
 module.exports = { enviarCorreoRecuperacion };

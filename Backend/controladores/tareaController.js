@@ -54,14 +54,6 @@ function validarTarea(body, tareaActual = null) {
             errores.push('La fecha límite no es válida');
         } else if (fecha < v.FECHA_MINIMA || fecha > v.FECHA_MAXIMA) {
             errores.push('La fecha límite debe estar entre los años 2000 y 2100');
-        } else {
-            const completada = (tareaActual ? tareaActual.estado : estado) === 'completada';
-            const igualALaGuardada = tareaActual && tareaActual.fechaLimite &&
-                Math.abs(fecha - tareaActual.fechaLimite) < v.UN_DIA;
-
-            if (!completada && !igualALaGuardada && fecha.getTime() < Date.now() - v.UN_DIA) {
-                errores.push('La fecha límite no puede ser anterior a hoy');
-            }
         }
     }
 

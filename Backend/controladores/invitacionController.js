@@ -12,7 +12,7 @@ function generarToken() {
 
 async function validarInvitado(body, eventoId, usuarioId, invitadoActual = null) {
     const errores = [];
-    const { nombre, email, numeroAcompanantes } = body || {};
+    const { nombre, email, numeroAcompanantes, restriccionesAlimentarias, observaciones } = body || {};
 
     const nombreLimpio = v.validarTexto(errores, nombre, {
         etiqueta: 'El nombre', max: 100, obligatorio: 'El nombre es obligatorio'
@@ -46,7 +46,21 @@ async function validarInvitado(body, eventoId, usuarioId, invitadoActual = null)
         }
     }
 
-    return { errores, datos: { nombre: nombreLimpio, email: emailLimpio, numeroAcompanantes: acompanantes } };
+    const restriccionesLimpias = v.validarTexto(errores, restriccionesAlimentarias, {
+        etiqueta: 'Las restricciones alimentarias', max: 200
+    });
+    const observacionesLimpias = v.validarTexto(errores, observaciones, {
+        etiqueta: 'Las observaciones', max: 200
+    });
+
+    return {
+        errores,
+        datos: {
+            nombre: nombreLimpio, email: emailLimpio, numeroAcompanantes: acompanantes,
+            restriccionesAlimentarias: restriccionesLimpias || '',
+            observaciones: observacionesLimpias || ''
+        }
+    };
 }
 
 async function listarPorEvento(req, res) {
@@ -64,7 +78,7 @@ async function listarPorEvento(req, res) {
 }
 
 async function crear(req, res) {
-     try {
+    try {
         const { eventoId } = req.params;
         if (!v.idValido(eventoId)) return res.status(400).json({ mensaje: 'Evento no válido' });
 
@@ -109,6 +123,8 @@ async function editar(req, res) {
         invitado.nombre = datos.nombre;
         invitado.email = datos.email;
         invitado.numeroAcompanantes = datos.numeroAcompanantes;
+        invitado.restriccionesAlimentarias = datos.restriccionesAlimentarias;
+        invitado.observaciones = datos.observaciones;
 
         await invitado.save();
         res.json(invitado);
@@ -118,7 +134,7 @@ async function editar(req, res) {
 }
 
 async function eliminar(req, res) {
-     try {
+    try {
         if (!v.idValido(req.params.id)) return res.status(400).json({ mensaje: 'Invitado no válido' });
 
         const invitado = await Invitado.findOne({ _id: req.params.id, usuarioId: req.usuarioId });
