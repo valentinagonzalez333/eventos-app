@@ -52,9 +52,7 @@ function renderizarTareas() {
     };
 
   
-    const permitePasado = editando && (editando.estado === 'completada' ||
-        (valores.fechaLimite && valores.fechaLimite < hoyLocal()));
-    const fechaMinima = permitePasado ? FECHA_MINIMA_INPUT : hoyLocal();
+    const fechaMinima = FECHA_MINIMA_INPUT;
 
     const hechas = tareasActuales.filter(t => t.estado === 'completada').length;
     const total = tareasActuales.length;
@@ -206,13 +204,7 @@ function validarTarea({ nombre, categoria, monto, prioridad, fecha, descripcion 
             errores.push('La fecha límite no es válida');
         } else if (fecha < FECHA_MINIMA_INPUT || fecha > FECHA_MAXIMA_INPUT) {
             errores.push('La fecha límite debe estar entre los años 2000 y 2100');
-        } else {
-            const cambio = !editando || fecha !== fechaParaInput(editando.fechaLimite);
-            const completada = editando?.estado === 'completada';
-            if (cambio && !completada && fecha < hoyLocal()) {
-                errores.push('La fecha límite no puede ser anterior a hoy');
-            }
-        }
+        } 
     }
 
     if (descripcion.length > 300) errores.push('Las notas no pueden superar los 300 caracteres');

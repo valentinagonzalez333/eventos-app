@@ -30,7 +30,7 @@ function activarPestana(pestana) {
             pestanasCargadas.add(pestana);
             cargadores[pestana]();
         } else if (pestana === 'invitaciones') {
-            
+
             actualizarDatosEventoEnDiseno();
         }
     }
@@ -54,7 +54,7 @@ function validarImagen(archivo) {
 
 async function cargarEvento() {
     try {
-     
+
         const [evento, presupuesto, invitados] = await Promise.all([
             api(`/api/eventos/${eventoId}`),
             api(`/api/eventos/${eventoId}/presupuesto`).catch(() => null),
@@ -66,7 +66,7 @@ async function cargarEvento() {
         renderizarInfo(evento, presupuesto, invitados);
     } catch (error) {
         console.error(error);
-       
+
         if (error.status === 400 || error.status === 404) {
             Alerta.error('No encontramos ese evento en tu cuenta.');
             setTimeout(() => window.location.replace('/eventos'), 1500);
@@ -509,7 +509,7 @@ async function guardarDiseno(e) {
     mostrarErrores('erroresDiseno', errores);
     if (errores.length > 0) return;
 
-    
+
     const formData = new FormData();
     formData.append('color', document.getElementById('disenoColor').value);
     formData.append('frase', frase);
@@ -551,30 +551,40 @@ function renderizarInvitados() {
 
     cont.innerHTML = `
         <form id="formInvitado" class="form-invitado" novalidate>
-            <div id="erroresInvitado" class="lista-errores"></div>
+    <div id="erroresInvitado" class="lista-errores"></div>
 
-            <label class="campo-invitado">
-                <span>Nombre</span>
-                <input type="text" id="invitadoNombre" placeholder="Nombre del invitado" maxlength="100" required>
-            </label>
+    <label class="campo-invitado">
+        <span>Nombre</span>
+        <input type="text" id="invitadoNombre" placeholder="Nombre del invitado" maxlength="100" required>
+    </label>
 
-            <label class="campo-invitado">
-                <span>Email (opcional)</span>
-                <input type="email" id="invitadoEmail" placeholder="correo@ejemplo.com" maxlength="100">
-            </label>
+    <label class="campo-invitado">
+        <span>Email (opcional)</span>
+        <input type="email" id="invitadoEmail" placeholder="correo@ejemplo.com" maxlength="100">
+    </label>
 
-            <label class="campo-invitado campo-invitado-chico">
-                <span>N.º de acompañantes que puede llevar</span>
-                <input type="number" id="invitadoAcompanantes" min="0" max="${MAX_ACOMPANANTES}" step="1" inputmode="numeric" value="0">
-            </label>
+    <label class="campo-invitado campo-invitado-chico">
+        <span>N.º de acompañantes que puede llevar</span>
+        <input type="number" id="invitadoAcompanantes" min="0" max="${MAX_ACOMPANANTES}" step="1" inputmode="numeric" value="0">
+    </label>
 
-            <button type="submit" class="btn-mini btn-mini-morado">+ Agregar invitado</button>
-        </form>
+    <label class="campo-invitado">
+        <span>Restricciones alimentarias (opcional)</span>
+        <input type="text" id="invitadoRestricciones" placeholder="Ej: vegetariano, alérgico al maní" maxlength="200">
+    </label>
+
+    <label class="campo-invitado">
+        <span>Observaciones (opcional)</span>
+        <input type="text" id="invitadoObservaciones" placeholder="Cualquier nota extra" maxlength="200">
+    </label>
+
+    <button type="submit" class="btn-mini btn-mini-morado">+ Agregar invitado</button>
+</form>
 
         <div class="lista-invitados">
             ${invitadosActuales.length === 0
-                ? '<p class="momentos-vacio">Todavía no has agregado invitados.</p>'
-                : invitadosActuales.map(filaInvitado).join('')}
+            ? '<p class="momentos-vacio">Todavía no has agregado invitados.</p>'
+            : invitadosActuales.map(filaInvitado).join('')}
         </div>
     `;
 
@@ -606,11 +616,38 @@ function filaInvitado(inv) {
         rechazado: 'estado-rechazado'
     };
 
+    const yaRespondio = inv.estado !== 'pendiente';
+
+    let bloqueAcompanantes;
+    if (!yaRespondio) {
+        bloqueAcompanantes = `<span class="invitado-detalle">Puede llevar ${inv.numeroAcompanantes || 0} acompañante(s) · Sin respuesta todavía</span>`;
+    } else if (inv.estado === 'rechazado') {
+        bloqueAcompanantes = `<span class="invitado-detalle">No asistirá</span>`;
+    } else {
+        const nombres = inv.acompanantesConfirmados || [];
+        bloqueAcompanantes = nombres.length > 0
+            ? `<span class="invitado-detalle">Acompañantes: ${nombres.map(escapar).join(', ')}</span>`
+            : `<span class="invitado-detalle">Sin acompañantes</span>`;
+    }
+
+    const restricciones = inv.restriccionesAlimentarias
+        ? `<span class="invitado-detalle invitado-alergia">🍽️ ${escapar(inv.restriccionesAlimentarias)}</span>`
+        : '';
+
+    const observaciones = inv.observaciones
+        ? `<span class="invitado-detalle">📝 ${escapar(inv.observaciones)}</span>`
+        : '';
+
     return `
         <div class="invitado-fila">
             <div class="invitado-info">
                 <strong>${escapar(inv.nombre)}</strong>
-                <span class="invitado-meta">${escapar(inv.numeroAcompanantes || 0)} acompañante(s) · <span class="badge-estado ${clasesEstado[inv.estado] || ''}">${escapar(inv.estado)}</span></span>
+                <span class="invitado-meta">
+                    <span class="badge-estado ${clasesEstado[inv.estado] || ''}">${escapar(inv.estado)}</span>
+                </span>
+                ${bloqueAcompanantes}
+                ${restricciones}
+                ${observaciones}
             </div>
             <div class="invitado-acciones">
                 <button type="button" class="btn-mini btn-copiar-link" data-token="${escapar(inv.token)}">Copiar link</button>
@@ -620,7 +657,7 @@ function filaInvitado(inv) {
     `;
 }
 
-function validarInvitado({ nombre, email, numeroAcompanantes }) {
+function validarInvitado({ nombre, email, numeroAcompanantes, restriccionesAlimentarias, observaciones }) {
     const errores = [];
 
     if (!nombre) errores.push('El nombre es obligatorio');
@@ -642,6 +679,9 @@ function validarInvitado({ nombre, email, numeroAcompanantes }) {
         errores.push(`Un invitado no puede llevar más de ${MAX_ACOMPANANTES} acompañantes`);
     }
 
+    if (restriccionesAlimentarias.length > 200) errores.push('Las restricciones alimentarias no pueden superar los 200 caracteres');
+    if (observaciones.length > 200) errores.push('Las observaciones no pueden superar los 200 caracteres');
+
     return errores;
 }
 
@@ -651,7 +691,9 @@ async function crearInvitado(e) {
     const cuerpo = {
         nombre: document.getElementById('invitadoNombre').value.trim(),
         email: document.getElementById('invitadoEmail').value.trim(),
-        numeroAcompanantes: Number(document.getElementById('invitadoAcompanantes').value)
+        numeroAcompanantes: Number(document.getElementById('invitadoAcompanantes').value),
+        restriccionesAlimentarias: document.getElementById('invitadoRestricciones').value.trim(),
+        observaciones: document.getElementById('invitadoObservaciones').value.trim()
     };
 
     const errores = validarInvitado(cuerpo);
@@ -693,7 +735,7 @@ async function eliminarInvitado(id) {
 }
 
 if (!eventoId) {
-    window.location.replace('/eventos'); 
+    window.location.replace('/eventos');
 } else {
     cargarEvento();
 }

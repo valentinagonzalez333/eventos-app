@@ -69,8 +69,8 @@ function renderizarGastos() {
                     </select>
                 </label>
                 <label>Fecha
-                    <input type="date" id="gastoFecha" required min="${FECHA_MINIMA_INPUT}" max="${hoyLocal()}" value="${valores.fecha}">
-                </label>
+    <input type="date" id="gastoFecha" required min="${FECHA_MINIMA_INPUT}" max="${fechaParaInput(eventoInfo?.fecha) || FECHA_MAXIMA_INPUT}" value="${valores.fecha}">
+</label>
                 <div class="form-acciones campo-ancho">
                     <button type="submit" class="btn-guardar">${editando ? 'Guardar cambios' : 'Agregar gasto'}</button>
                     ${editando ? '<button type="button" class="btn-secundario" id="btnCancelarGasto">Cancelar</button>' : ''}
@@ -79,8 +79,8 @@ function renderizarGastos() {
 
             <div class="lista-filas">
                 ${gastosActuales.length === 0
-                    ? '<p class="momentos-vacio">Todavía no hay gastos. Registra el primero arriba.</p>'
-                    : gastosActuales.map(filaGasto).join('')}
+            ? '<p class="momentos-vacio">Todavía no hay gastos. Registra el primero arriba.</p>'
+            : gastosActuales.map(filaGasto).join('')}
             </div>
         </div>
     `;
@@ -147,9 +147,9 @@ function validarGasto({ categoria, monto, descripcion, proveedorId, fecha }) {
     if (!fecha) errores.push('La fecha es obligatoria');
     else if (!fechaInputValida(fecha)) errores.push('La fecha no es válida');
     else if (fecha < FECHA_MINIMA_INPUT) errores.push('La fecha no puede ser anterior al año 2000');
-    else if (fecha > hoyLocal()) errores.push('La fecha no puede ser futura: aquí se registra lo que ya se pagó');
-
-    return errores;
+    else if (eventoInfo?.fecha && fecha > fechaParaInput(eventoInfo.fecha)) {
+        errores.push('La fecha no puede ser posterior a la fecha del evento');
+    }
 }
 
 
