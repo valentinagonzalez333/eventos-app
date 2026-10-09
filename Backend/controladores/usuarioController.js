@@ -9,7 +9,7 @@ const { enviarCorreoRecuperacion } = require('../controladores/correo');
 const SIN_MAYUSCULAS = { locale: 'es', strength: 2 };
 const RECUPERACION_VIGENCIA_MS = 60 * 60 * 1000;
 const MAX_INTENTOS = 5;
-const BLOQUEO_MS = 15 * 60 * 1000;
+const BLOQUEO_MS = 5 * 60 * 1000;
 
 function validarNombreUsuario(errores, user) {
   const limpio = v.validarTexto(errores, user, {
