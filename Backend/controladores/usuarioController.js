@@ -7,7 +7,9 @@ const { enviarCorreoRecuperacion } = require('../controladores/correo');
 
 
 const SIN_MAYUSCULAS = { locale: 'es', strength: 2 };
-const RECUPERACION_VIGENCIA_MS = 60 * 60 * 1000; 
+const RECUPERACION_VIGENCIA_MS = 60 * 60 * 1000;
+const MAX_INTENTOS = 5;
+const BLOQUEO_MS = 15 * 60 * 1000;
 
 function validarNombreUsuario(errores, user) {
   const limpio = v.validarTexto(errores, user, {
@@ -65,7 +67,7 @@ exports.registrar = async (req, res) => {
       rol: 'Organizador'
     });
 
-    
+
     res.status(200).json({
       mensaje: 'Usuario registrado',
       usuario: { id: nuevo._id, user: nuevo.user, correo: nuevo.correo }
@@ -79,14 +81,41 @@ exports.login = async (req, res) => {
   try {
     const { correo, pass } = req.body || {};
 
-    
     if (typeof correo !== 'string' || typeof pass !== 'string' || !correo.trim() || !pass) {
       return res.status(400).json({ mensaje: 'Escribe tu correo y tu contraseña' });
     }
 
     const usuario = await Usuario.findOne({ correo: correo.trim() }).collation(SIN_MAYUSCULAS);
-    if (!usuario || !(await bcrypt.compare(pass, usuario.pass))) {
+
+    if (usuario && usuario.bloqueadoHasta && usuario.bloqueadoHasta > new Date()) {
+      const minutos = Math.ceil((usuario.bloqueadoHasta - Date.now()) / 60000);
+      return res.status(429).json({
+        mensaje: `Cuenta bloqueada por demasiados intentos fallidos. Intenta de nuevo en ${minutos} minuto(s).`
+      });
+    }
+
+    const correcta = usuario ? await bcrypt.compare(pass, usuario.pass) : false;
+
+    if (!correcta) {
+      if (usuario) {
+        const { intentosFallidos } = await Usuario.findByIdAndUpdate(
+          usuario._id, { $inc: { intentosFallidos: 1 } }, { new: true }
+        );
+        if (intentosFallidos >= MAX_INTENTOS) {
+          await Usuario.updateOne(
+            { _id: usuario._id },
+            { $set: { intentosFallidos: 0, bloqueadoHasta: new Date(Date.now() + BLOQUEO_MS) } }
+          );
+          return res.status(429).json({
+            mensaje: `Demasiados intentos fallidos. Tu cuenta quedó bloqueada ${BLOQUEO_MS / 60000} minutos.`
+          });
+        }
+      }
       return res.status(400).json({ mensaje: 'Usuario o contraseña incorrectos' });
+    }
+
+    if (usuario.intentosFallidos > 0 || usuario.bloqueadoHasta) {
+      await Usuario.updateOne({ _id: usuario._id }, { $set: { intentosFallidos: 0, bloqueadoHasta: null } });
     }
 
     const token = jwt.sign(
@@ -195,7 +224,7 @@ exports.solicitarRecuperacion = async (req, res) => {
 
       const link = `${req.protocol}://${req.get('host')}/restablecer?token=${tokenCrudo}`;
 
-      
+
       try {
         await enviarCorreoRecuperacion(usuario.correo, usuario.user, link);
       } catch (errorCorreo) {
@@ -236,6 +265,8 @@ exports.restablecerContrasena = async (req, res) => {
     usuario.pass = await bcrypt.hash(nuevaPass, 10);
     usuario.resetTokenHash = null;
     usuario.resetExpira = null;
+    usuario.intentosFallidos = 0;
+    usuario.bloqueadoHasta = null;
     await usuario.save();
 
     res.status(200).json({ mensaje: 'Contraseña actualizada con éxito. Ya puedes iniciar sesión.' });
